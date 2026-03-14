@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PoW 2.0 Infographic - Export PNG</title>
+<style>
+  body { margin: 0; background: #1a1a2e; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: monospace; }
+  canvas { border-radius: 12px; }
+  button { margin-top: 20px; padding: 12px 32px; background: #534AB7; color: #EEEDFE; border: none; border-radius: 8px; font-size: 15px; font-family: monospace; cursor: pointer; letter-spacing: 2px; }
+  button:hover { background: #7F77DD; }
+  p { color: #7F77DD; font-size: 12px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<button onclick="downloadPNG()">DOWNLOAD PNG</button>
+<p>Click to save as PNG</p>
+<script>
+const svgStr = `<svg width="680" height="820" viewBox="0 0 680 820" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <style>
+    .th { font-family: sans-serif; font-size: 14px; font-weight: 600; fill: #3C3489; }
+    .ts { font-family: sans-serif; font-size: 12px; fill: #534AB7; }
+    .c-purple-rect { fill: #EEEDFE; stroke: #534AB7; }
+    .c-coral-rect  { fill: #FAECE7; stroke: #993C1D; }
+    .c-teal-rect   { fill: #E1F5EE; stroke: #0F6E56; }
+    .c-purple-text { fill: #3C3489; }
+    .c-coral-text  { fill: #712B13; }
+    .c-teal-text   { fill: #085041; }
+    .c-purple-sub  { fill: #534AB7; }
+    .c-coral-sub   { fill: #993C1D; }
+    .c-teal-sub    { fill: #0F6E56; }
+    .row-bg { fill: #F1EFE8; stroke: none; }
+    .row-label { font-family: sans-serif; font-size: 12px; font-weight: 600; fill: #444441; }
+  </style>
+</defs>
+
+<!-- Background -->
+<rect width="680" height="820" fill="#ffffff" rx="16"/>
+
+<!-- Header -->
+<rect x="40" y="24" width="600" height="56" rx="12" class="c-purple-rect" stroke-width="0.5"/>
+<text class="th c-purple-text" x="340" y="52" text-anchor="middle" font-size="16">Consensus mechanism comparison</text>
+<text class="ts c-purple-sub" x="340" y="70" text-anchor="middle">PoW · PoS · PoW 2.0 (Psy Protocol)</text>
+
+<!-- Column headers -->
+<rect x="40" y="104" width="180" height="40" rx="8" class="c-coral-rect" stroke-width="0.5"/>
+<text x="130" y="129" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#712B13">PoW</text>
+
+<rect x="250" y="104" width="180" height="40" rx="8" class="c-teal-rect" stroke-width="0.5"/>
+<text x="340" y="129" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#085041">PoS</text>
+
+<rect x="460" y="104" width="180" height="40" rx="8" class="c-purple-rect" stroke-width="0.5"/>
+<text x="550" y="129" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#3C3489">PoW 2.0 (Psy)</text>
+
+<!-- Row 1: Mechanism -->
+<rect x="40" y="162" width="600" height="14" rx="4" class="row-bg"/>
+<text x="340" y="173" text-anchor="middle" class="row-label">Mechanism</text>
+
+<rect x="40" y="180" width="180" height="64" rx="8" class="c-coral-rect" stroke-width="0.5"/>
+<text x="130" y="204" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">Hash puzzle solving</text>
+<text x="130" y="222" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">by miners (CPU/GPU)</text>
+
+<rect x="250" y="180" width="180" height="64" rx="8" class="c-teal-rect" stroke-width="0.5"/>
+<text x="340" y="204" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">Lock up tokens</text>
+<text x="340" y="222" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">as collateral</text>
+
+<rect x="460" y="180" width="180" height="64" rx="8" class="c-purple-rect" stroke-width="0.5"/>
+<text x="550" y="204" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">Proof of verifiable</text>
+<text x="550" y="222" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">work + computation</text>
+
+<!-- Row 2: Energy -->
+<rect x="40" y="258" width="600" height="14" rx="4" class="row-bg"/>
+<text x="340" y="269" text-anchor="middle" class="row-label">Energy use</text>
+
+<rect x="40" y="276" width="180" height="52" rx="8" class="c-coral-rect" stroke-width="0.5"/>
+<text x="130" y="302" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">Very high</text>
+
+<rect x="250" y="276" width="180" height="52" rx="8" class="c-teal-rect" stroke-width="0.5"/>
+<text x="340" y="302" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">Very low</text>
+
+<rect x="460" y="276" width="180" height="52" rx="8" class="c-purple-rect" stroke-width="0.5"/>
+<text x="550" y="302" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">Efficient + purposeful</text>
+
+<!-- Row 3: Security -->
+<rect x="40" y="342" width="600" height="14" rx="4" class="row-bg"/>
+<text x="340" y="353" text-anchor="middle" class="row-label">Security model</text>
+
+<rect x="40" y="360" width="180" height="64" rx="8" class="c-coral-rect" stroke-width="0.5"/>
+<text x="130" y="384" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">51% hash rate</text>
+<text x="130" y="402" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">= control</text>
+
+<rect x="250" y="360" width="180" height="64" rx="8" class="c-teal-rect" stroke-width="0.5"/>
+<text x="340" y="384" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">51% token stake</text>
+<text x="340" y="402" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">= control</text>
+
+<rect x="460" y="360" width="180" height="64" rx="8" class="c-purple-rect" stroke-width="0.5"/>
+<text x="550" y="384" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">Work must be</text>
+<text x="550" y="402" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">verifiable on-chain</text>
+
+<!-- Row 4: AI readiness -->
+<rect x="40" y="438" width="600" height="14" rx="4" class="row-bg"/>
+<text x="340" y="449" text-anchor="middle" class="row-label">AI agent readiness</text>
+
+<rect x="40" y="456" width="180" height="52" rx="8" class="c-coral-rect" stroke-width="0.5"/>
+<text x="130" y="482" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">Not designed for it</text>
+
+<rect x="250" y="456" width="180" height="52" rx="8" class="c-teal-rect" stroke-width="0.5"/>
+<text x="340" y="482" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">Partial support</text>
+
+<rect x="460" y="456" width="180" height="52" rx="8" class="c-purple-rect" stroke-width="0.5"/>
+<text x="550" y="482" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">Built for 24/7 agents</text>
+
+<!-- Row 5: Transparency -->
+<rect x="40" y="522" width="600" height="14" rx="4" class="row-bg"/>
+<text x="340" y="533" text-anchor="middle" class="row-label">Transparency</text>
+
+<rect x="40" y="540" width="180" height="52" rx="8" class="c-coral-rect" stroke-width="0.5"/>
+<text x="130" y="566" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">Block data public</text>
+
+<rect x="250" y="540" width="180" height="52" rx="8" class="c-teal-rect" stroke-width="0.5"/>
+<text x="340" y="566" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">Stake visible</text>
+
+<rect x="460" y="540" width="180" height="52" rx="8" class="c-purple-rect" stroke-width="0.5"/>
+<text x="550" y="566" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">Work + proof public</text>
+
+<!-- Row 6: Weakness -->
+<rect x="40" y="606" width="600" height="14" rx="4" class="row-bg"/>
+<text x="340" y="617" text-anchor="middle" class="row-label">Key weakness</text>
+
+<rect x="40" y="624" width="180" height="64" rx="8" class="c-coral-rect" stroke-width="0.5"/>
+<text x="130" y="648" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">Massive energy</text>
+<text x="130" y="666" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#712B13">waste</text>
+
+<rect x="250" y="624" width="180" height="64" rx="8" class="c-teal-rect" stroke-width="0.5"/>
+<text x="340" y="648" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">Wealth = power,</text>
+<text x="340" y="666" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#085041">low barrier to collude</text>
+
+<rect x="460" y="624" width="180" height="64" rx="8" class="c-purple-rect" stroke-width="0.5"/>
+<text x="550" y="648" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">Novel — still</text>
+<text x="550" y="666" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#3C3489">being battle-tested</text>
+
+<!-- Footer -->
+<rect x="220" y="716" width="240" height="32" rx="16" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="340" y="736" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#534AB7">@PsyProtocol · psy.xyz</text>
+</svg>`;
+
+const canvas = document.getElementById('c');
+const scale = 2;
+canvas.width = 680 * scale;
+canvas.height = 820 * scale;
+canvas.style.width = '680px';
+canvas.style.height = '820px';
+const ctx = canvas.getContext('2d');
+ctx.scale(scale, scale);
+
+const img = new Image();
+const blob = new Blob([svgStr], {type: 'image/svg+xml;charset=utf-8'});
+const url = URL.createObjectURL(blob);
+img.onload = () => { ctx.drawImage(img, 0, 0); URL.revokeObjectURL(url); };
+img.src = url;
+
+function downloadPNG() {
+  const link = document.createElement('a');
+  link.download = 'pow2_infographic_psy.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+</script>
+</body>
+</html>
